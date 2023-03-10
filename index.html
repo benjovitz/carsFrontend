@@ -24,7 +24,7 @@
 <script>
    const carTable = document.querySelector("#carTable tbody");
 
-fetch("http://localhost:8080/api/cars")
+fetch("http://danielcars.azurewebsites.net/api/cars")
   .then(response => response.json())
   .then(data => {
     data.forEach(car => {
