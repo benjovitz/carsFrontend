@@ -7,8 +7,9 @@ export async function initFindCar(match) {
 document.getElementById("btn-fetch-car").onclick = fetchCarData
 document.getElementById("btn-edit-car").onclick = putCarData
     if (match?.params?.id) {
-      carID=id
       const id = match.params.id
+      carID=id
+      console.log(id)
       try {
         renderCar(id)
       } catch (err) {

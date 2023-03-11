@@ -46,7 +46,7 @@ import {
     },
     "/find-car": (match) => {
         renderTemplate(templateFindCar,"content")
-        initFindCar()
+        initFindCar(match)
     },
 
     "/show-match": (match) => {
