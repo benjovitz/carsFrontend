@@ -9,7 +9,6 @@ document.getElementById("btn-edit-car").onclick = putCarData
     if (match?.params?.id) {
       const id = match.params.id
       carID=id
-      console.log(id)
       try {
         renderCar(id)
       } catch (err) {
@@ -86,4 +85,6 @@ document.getElementById("btn-edit-car").onclick = putCarData
     document.getElementById("error").innerText=err
   }
   }
+
+
   
