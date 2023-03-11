@@ -6,7 +6,8 @@ import {
 
   //import { initUsersModal } from "./pages/users-modal/users-modal.js"
   import {initGetAllCars} from "./pages/getAllCars/getAllCars.js"
-  import { initGetOneCar } from "./pages/getOneCar/getOneCar.js";
+  import { initFindCar } from "./pages/find-car/find-car.js";
+  import {showMatchObject} from "./pages/show-match/match.js"
   
   //const cars = await fetch("https://danielcars.azurewebsites.net/api/cars").then(handleHttpErrors)
   window.addEventListener("load", async () => {
@@ -14,7 +15,8 @@ import {
     //const templateUsersModal = await loadTemplate("./pages/users-modal/users-modal.html")'
     const templateGetAllCars = await loadTemplate("./pages/getAllCars/getAllCars.html")
     const templateNotFound = await loadTemplate("./pages/notFound/notFound.html")
-    const templateGetOneCar = await loadTemplate("./pages/getOneCar/getOneCar.html")
+    const templateFindCar = await loadTemplate("./pages/find-car/find-car.html")
+    const templateMatch = await loadTemplate ("./pages/show-match/match.html")
     
   
     adjustForMissingHash()
@@ -38,13 +40,18 @@ import {
     Observe that this is so simple that all HTML is added in the on-handler for the route. 
     </p>
    `,
-    "/get-all-cars": () => {
+    "/get-all-cars": async () => {
         renderTemplate(templateGetAllCars,"content")
         initGetAllCars()
     },
-    "/get-one-car": (match) => {
-        renderTemplate(templateGetOneCar,"content")
-        initGetOneCar()
+    "/find-car": (match) => {
+        renderTemplate(templateFindCar,"content")
+        initFindCar()
+    },
+
+    "/show-match": (match) => {
+      renderTemplate(templateMatch, "content")
+      showMatchObject(match)
     }
       })
       .notFound(() => {

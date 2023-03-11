@@ -1,23 +1,36 @@
 import { handleHttpErrors,sanitizeStringWithTableRows } from "../../utils.js";
 
-let cars=[]
-
 export async function initGetAllCars(){
-    
-     cars = await fetch("https://danielcars.azurewebsites.net/api/cars").then(handleHttpErrors)
-    const tableRows = cars.map(car=>`
-    <tr>
-    <td>${car.id}</td>
-    <td>${car.brand}</td>
-    <td>${car.model}</td>
-    <td>${car.bestDicsount}</td>
-    <td>${car.pricePrDay}</td>`).join("")
 
-    document.getElementById("table-body").innerHTML=sanitizeStringWithTableRows(tableRows)
+    document.getElementById("table-body").onclick = editCar
+    showAllCars()
 }
 
-//keeping the cars as an in memory array since the api is so slow, so i figured its quicker to use this array as a base instead of filtering through our slow api service
-//I guess the "correct" way would be to use the api filter api/cars/id ex.
-export function getCars(){
-    return cars
-}
+async function editCar(evt) {
+    const target = evt.target
+    if (!target.id.startsWith("row-btn_edit")) {
+      return
+    }
+    const id = target.id.replace("row-btn_edit", "")
+    window.router.navigate("find-car?id=" + id)
+  }
+
+  async function showAllCars(){
+ //cars = await fetch("https://danielcars.azurewebsites.net/api/cars").then(handleHttpErrors)
+ const cars = await fetch("http://localhost:8080/api/cars").then(handleHttpErrors)
+ const tableRows = cars.map(car=>`
+ <tr>
+ <td>${car.id}</td>
+ <td>${car.brand}</td>
+ <td>${car.model}</td>
+ <td>${car.bestDiscount}</td>
+ <td>${car.pricePrDay}</td>
+ <td>
+ <button id="row-btn_details_${car.id}" type="button"  class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Details</button> 
+ <button id="row-btn_edit${car.id}" type="button"  class="btn btn-sm btn-secondary">Edit</button>   
+ <button id="row-btn_delete_${car.id}" type="button"  class="btn btn-sm btn-danger">Delete</button> 
+ </td>    `).join("")
+
+ document.getElementById("table-body").innerHTML=sanitizeStringWithTableRows(tableRows)
+  }
+  
