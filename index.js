@@ -8,6 +8,7 @@ import {
   import {initGetAllCars} from "./pages/getAllCars/getAllCars.js"
   import { initFindCar } from "./pages/find-car/find-car.js";
   import {showMatchObject} from "./pages/show-match/match.js"
+  import { initGetAllMembers } from "./pages/getAllMembers/getAllMembers.js";
   
   //const cars = await fetch("https://danielcars.azurewebsites.net/api/cars").then(handleHttpErrors)
   window.addEventListener("load", async () => {
@@ -17,6 +18,7 @@ import {
     const templateNotFound = await loadTemplate("./pages/notFound/notFound.html")
     const templateFindCar = await loadTemplate("./pages/find-car/find-car.html")
     const templateMatch = await loadTemplate ("./pages/show-match/match.html")
+    const templateGetAllMembers = await loadTemplate("./pages/getAllMembers/getAllMembers.html")
     
   
     adjustForMissingHash()
@@ -48,10 +50,13 @@ import {
         renderTemplate(templateFindCar,"content")
         initFindCar(match)
     },
-
     "/show-match": (match) => {
       renderTemplate(templateMatch, "content")
       showMatchObject(match)
+    },
+    "/get-all-members": () => {
+      renderTemplate(templateGetAllMembers, "content")
+      initGetAllMembers()
     }
       })
       .notFound(() => {

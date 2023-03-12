@@ -1,23 +1,13 @@
 import { handleHttpErrors,sanitizeStringWithTableRows } from "../../utils.js";
 
+const URL = "http://localhost:8080/api/cars"
 export async function initGetAllCars(){
-
     document.getElementById("table-body").onclick = showCarDetails
     showAllCars()
 }
-
-/* async function editCar(evt) {
-    const target = evt.target
-    if (!target.id.startsWith("row-btn_edit")) {
-      return
-    }
-    const id = target.id.replace("row-btn_edit", "")
-    window.router.navigate("find-car?id=" + id)
-  }
- */
   async function showAllCars(){
  //cars = await fetch("https://danielcars.azurewebsites.net/api/cars").then(handleHttpErrors)
- const cars = await fetch("http://localhost:8080/api/cars").then(handleHttpErrors)
+ const cars = await fetch(URL).then(handleHttpErrors)
  const tableRows = cars.map(car=>`
  <tr>
  <td>${car.id}</td>
@@ -45,13 +35,16 @@ export async function initGetAllCars(){
     const btnAction = parts[1]
       if (btnAction === "details") {
         console.log("hej")
-        document.getElementById("exampleModalLabel").innerText="Details for user: "+id
-        const car = await fetch("http://localhost:8080/api/cars/"+id).then(res=>res.json())
-        document.getElementById("modal-body").innerText=JSON.stringify(car,null,2)
+        document.getElementById("exampleModalLabel").innerText="Reservations for car: "+id
+        const car = await fetch(URL+"/"+id).then(handleHttpErrors)
+        if(!car.reservations.length==0){
+        document.getElementById("modal-body").innerText=JSON.stringify(car.reservations)
       } 
+    }
       else 
       if (btnAction === "delete")  {
-          alert("Here you can DELETE user with id: " + id )
+          deleteUser(id)
+          showAllCars()
       }
       else 
       if(btnAction === "edit"){
@@ -59,5 +52,18 @@ export async function initGetAllCars(){
         window.router.navigate("find-car?id=" + id)
       }
       
+  }
+
+  async function deleteUser(id){
+    try{
+        fetch(URL+"/"+id,{
+            method: "delete"
+        }).then(handleHttpErrors)
+        showAllCars()
+
+    } catch (err){
+        console.log(err)
+    }
+   
   }
   
