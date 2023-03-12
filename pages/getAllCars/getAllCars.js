@@ -1,12 +1,12 @@
 import { handleHttpErrors,sanitizeStringWithTableRows } from "../../utils.js";
 
-const URL = "http://localhost:8080/api/cars"
+//const URL = "http://localhost:8080/api/cars"
+const URL = "https://danielcars.azurewebsites.net/api/cars"
 export async function initGetAllCars(){
     document.getElementById("table-body").onclick = showCarDetails
     showAllCars()
 }
   async function showAllCars(){
- //cars = await fetch("https://danielcars.azurewebsites.net/api/cars").then(handleHttpErrors)
  const cars = await fetch(URL).then(handleHttpErrors)
  const tableRows = cars.map(car=>`
  <tr>
