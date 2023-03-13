@@ -1,7 +1,7 @@
 import { sanitizeStringWithTableRows,handleHttpErrors } from "../../utils.js"
 
-//const URL = "http://localhost:8080/api/members"
-const URL = "https://danielcars.azurewebsites.net/api/members"
+//const URL = "http://localhost:8080/api/members/"
+const URL = "https://danielcars.azurewebsites.net/api/members/"
 export async function initGetAllMembers(){
     document.getElementById("table-body").onclick = showUserDetails
     getAllMembers()
@@ -35,7 +35,7 @@ async function showUserDetails(evt) {
     const btnAction = parts[1]
       if (btnAction === "details") {
         document.getElementById("exampleModalLabel").innerText="Details for user: "+id
-        const userDetails = await fetch(`${URL}/${id}`).then(handleHttpErrors)
+        const userDetails = await fetch(URL+id).then(handleHttpErrors)
         let data = `<ul>
         <li>Username: ${userDetails.username}</li>
         <li>Full name: ${userDetails.firstName} ${userDetails.lastName}</li>
