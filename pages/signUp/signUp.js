@@ -29,4 +29,5 @@ async function createMember(){
     } catch (err){
         console.log(err)
     }
+    window.router.navigate("/login")
 }

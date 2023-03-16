@@ -10,8 +10,8 @@ export function initLogin() {
 export function logout(){
   document.getElementById("login-id").style.display="block"
   document.getElementById("logout-id").style.display="none"
+  document.getElementById("sign-up-id").style.display="block"
   localStorage.clear()
-
 }
 
 
@@ -37,6 +37,7 @@ async function login(evt) {
 
     document.getElementById("login-id").style.display="none"
     document.getElementById("logout-id").style.display="block"
+    document.getElementById("sign-up-id").style.display="none"
 
     window.router.navigate("")
   } catch (err) {
