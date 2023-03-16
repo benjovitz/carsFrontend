@@ -1,4 +1,8 @@
 import { handleHttpErrors } from "../../utils.js";
+import { API_URL,getHeaders } from "../../settings.js";
+
+const URL = API_URL+"cars/"
+let headers = getHeaders()
 
 const navigoRoute = "find-car"
 let carID
@@ -37,7 +41,9 @@ document.getElementById("btn-edit-car").onclick = putCarData
   async function renderCar(id){
     try{
         //const car = await fetch("https://danielcars.azurewebsites.net/api/cars/"+id).then(handleHttpErrors)
-        const car = await fetch("http://localhost:8080/api/cars/"+id).then(handleHttpErrors)
+        const car = await fetch(URL+id,{
+          headers:headers
+        }).then(handleHttpErrors)
         document.getElementById("fetch-car-input").value = ""
 
         if(car === undefined){
@@ -73,10 +79,11 @@ document.getElementById("btn-edit-car").onclick = putCarData
     editCar.pricePrDay= document.getElementById("pricePrDay").value
     editCar.bestDiscount= document.getElementById("bestDiscount").value
     //const answer = await fetch("https://danielcars.azurewebsites.net/api/cars/"+id)
-    const answer = await fetch("http://localhost:8080/api/cars/"+carID,{
+    const answer = await fetch(URL+carID,{
       method: "put",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization":"Bearer "+localStorage.getItem("token")
       },
       body: JSON.stringify(editCar)
     }).then(handleHttpErrors)

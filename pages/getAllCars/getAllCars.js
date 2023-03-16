@@ -1,13 +1,18 @@
 import { handleHttpErrors,sanitizeStringWithTableRows } from "../../utils.js";
+import { API_URL,getHeaders } from "../../settings.js";
+const URL = API_URL+"cars/"
+let headers = getHeaders()
 
-const URL = "http://localhost:8080/api/cars/"
 //const URL = "https://danielcars.azurewebsites.net/api/cars/"
 export async function initGetAllCars(){
     document.getElementById("table-body").onclick = showCarDetails
     showAllCars()
 }
   async function showAllCars(){
- const cars = await fetch(URL).then(handleHttpErrors)
+    try{
+ const cars = await fetch(URL,{
+  headers: headers
+ }).then(handleHttpErrors)
  const tableRows = cars.map(car=>`
  <tr>
  <td>${car.id}</td>
@@ -22,7 +27,11 @@ export async function initGetAllCars(){
  </td>    `).join("")
 
  document.getElementById("table-body").innerHTML=sanitizeStringWithTableRows(tableRows)
+  } catch (err){
+    document.getElementById("table-body").innerHTML="<p>error loading</p>"
+    console.log(err)
   }
+}
 
   async function showCarDetails(evt) {
     const target = evt.target
@@ -36,7 +45,9 @@ export async function initGetAllCars(){
       if (btnAction === "details") {
         console.log("hej")
         document.getElementById("exampleModalLabel").innerText="Reservations for car: "+id
-        const car = await fetch(URL+id).then(handleHttpErrors)
+        const car = await fetch(URL+id,{
+          headers:headers
+        }).then(handleHttpErrors)
         if(!car.reservations.length==0){
         document.getElementById("modal-body").innerText=JSON.stringify(car.reservations)
       } else{
@@ -45,7 +56,7 @@ export async function initGetAllCars(){
     }
       else 
       if (btnAction === "delete")  {
-          deleteUser(id)
+          deleteCar(id)
           showAllCars()
       }
       else 
@@ -56,10 +67,11 @@ export async function initGetAllCars(){
       
   }
 
-  async function deleteUser(id){
+  async function deleteCar(id){
     try{
         fetch(URL+id,{
-            method: "delete"
+            method: "delete",
+            headers: headers
         }).then(handleHttpErrors)
         showAllCars()
 

@@ -10,6 +10,8 @@ import {
   import {showMatchObject} from "./pages/show-match/match.js"
   import { initGetAllMembers } from "./pages/getAllMembers/getAllMembers.js";
   import { initLogin,logout } from "./pages/login/login.js";
+  import { initAddCar } from "./pages/addCar/addCar.js";
+  import { initSignUp } from "./pages/signUp/signUp.js";
   
   //const cars = await fetch("https://danielcars.azurewebsites.net/api/cars").then(handleHttpErrors)
   window.addEventListener("load", async () => {
@@ -21,6 +23,8 @@ import {
     const templateMatch = await loadTemplate ("./pages/show-match/match.html")
     const templateGetAllMembers = await loadTemplate("./pages/getAllMembers/getAllMembers.html")
     const templateLogin = await loadTemplate("./pages/login/login.html")
+    const templateAddCar = await loadTemplate("./pages/addCar/addCar.html")
+    const templateSignUp = await loadTemplate("./pages/signUp/signUp.html")
     
   
     adjustForMissingHash()
@@ -44,7 +48,7 @@ import {
     Observe that this is so simple that all HTML is added in the on-handler for the route. 
     </p>
    `,
-    "/get-all-cars": async () => {
+    "/cars": async () => {
         renderTemplate(templateGetAllCars,"content")
         initGetAllCars()
     },
@@ -52,11 +56,15 @@ import {
         renderTemplate(templateFindCar,"content")
         initFindCar(match)
     },
+    "/add-car": () => {
+        renderTemplate(templateAddCar,"content")
+        initAddCar()
+    },
     "/show-match": (match) => {
       renderTemplate(templateMatch, "content")
       showMatchObject(match)
     },
-    "/get-all-members": () => {
+    "/members": () => {
       renderTemplate(templateGetAllMembers, "content")
       initGetAllMembers()
     },
@@ -66,6 +74,10 @@ import {
     },
     "/logout": () => {
       logout()
+    },
+    "/sign-up":()=>{
+      renderTemplate(templateSignUp,"content")
+      initSignUp()
     }
       })
       .notFound(() => {
