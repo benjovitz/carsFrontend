@@ -1,7 +1,7 @@
 import { sanitizeStringWithTableRows,handleHttpErrors } from "../../utils.js"
 
-//const URL = "http://localhost:8080/api/members/"
-const URL = "https://danielcars.azurewebsites.net/api/members/"
+const URL = "http://localhost:8080/api/members/"
+//const URL = "https://danielcars.azurewebsites.net/api/members/"
 export async function initGetAllMembers(){
     document.getElementById("table-body").onclick = showUserDetails
     getAllMembers()

@@ -1,7 +1,7 @@
 import { handleHttpErrors,sanitizeStringWithTableRows } from "../../utils.js";
 
-//const URL = "http://localhost:8080/api/cars/"
-const URL = "https://danielcars.azurewebsites.net/api/cars/"
+const URL = "http://localhost:8080/api/cars/"
+//const URL = "https://danielcars.azurewebsites.net/api/cars/"
 export async function initGetAllCars(){
     document.getElementById("table-body").onclick = showCarDetails
     showAllCars()
@@ -39,7 +39,9 @@ export async function initGetAllCars(){
         const car = await fetch(URL+id).then(handleHttpErrors)
         if(!car.reservations.length==0){
         document.getElementById("modal-body").innerText=JSON.stringify(car.reservations)
-      } 
+      } else{
+        document.getElementById("modal-body").innerText=""
+      }
     }
       else 
       if (btnAction === "delete")  {
