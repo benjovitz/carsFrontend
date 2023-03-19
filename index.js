@@ -12,6 +12,7 @@ import {
   import { initLogin,logout } from "./pages/login/login.js";
   import { initAddCar } from "./pages/addCar/addCar.js";
   import { initSignUp } from "./pages/signUp/signUp.js";
+  import { initReservation } from "./pages/reservation/reserve.js";
   
   //const cars = await fetch("https://danielcars.azurewebsites.net/api/cars").then(handleHttpErrors)
   window.addEventListener("load", async () => {
@@ -25,6 +26,7 @@ import {
     const templateLogin = await loadTemplate("./pages/login/login.html")
     const templateAddCar = await loadTemplate("./pages/addCar/addCar.html")
     const templateSignUp = await loadTemplate("./pages/signUp/signUp.html")
+    const templateReservation = await loadTemplate("./pages/reservation/reserve.html")
     
   
     adjustForMissingHash()
@@ -78,6 +80,10 @@ import {
     "/sign-up":()=>{
       renderTemplate(templateSignUp,"content")
       initSignUp()
+    },
+    "/reserve-car":()=>{
+      renderTemplate(templateReservation,"content")
+      initReservation()
     }
       })
       .notFound(() => {

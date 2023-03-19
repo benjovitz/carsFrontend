@@ -43,7 +43,6 @@ export async function initGetAllCars(){
     const id = parts[2]
     const btnAction = parts[1]
       if (btnAction === "details") {
-        console.log("hej")
         document.getElementById("exampleModalLabel").innerText="Reservations for car: "+id
         const car = await fetch(URL+id,{
           headers:headers

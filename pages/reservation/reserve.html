@@ -1,0 +1,46 @@
+<template>
+  <h2>Reserve Car</h2>
+  <table class="table" style="max-width:1000px;">
+    <thead>
+      <tr>
+        <td>Brand</td>
+        <td>Model</td>
+        <td>Price pr. day</td>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+  <p id="error" style="margin-top:0.5 em;"></p>
+
+  <!-- Modal -->
+  <div class="modal fade" id="reservation-modal" tabindex="-1" aria-labelledby="reservation-modal-label"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="reservation-modal-label">Reserve car</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="row">
+              <div class="col-md-3">
+                <label for="reservation-date">Date</label>
+              </div>
+              <div class="col-md-9">
+                <input id="reservation-date" type="date" placeholder="Select a reservation date">
+              </div>
+            </div>
+            <input hidden id="car-id" />
+          </div>
+          <br />
+          <p id="status">&nbsp;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="btn-reservation" type="button" class="btn btn-primary">Make Reservation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
